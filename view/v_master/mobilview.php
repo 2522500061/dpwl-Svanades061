@@ -1,15 +1,11 @@
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0">Data Mobil</h1>
-        </div>
+        <div class="col-sm-6"><h1 class="m-0">Data Mobil</h1></div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="<?= base_url('Mobil_C/index') ?>">Master Data</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url('?url=c_master/Mobil_C/index') ?>">Master Data</a></li>
             <li class="breadcrumb-item active">Data Mobil</li>
           </ol>
         </div>
@@ -17,14 +13,13 @@
     </div>
   </div>
 
-  <!-- Main content -->
   <div class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <a href="<?= base_url('Mobil_C/create_mobil') ?>" class="btn btn-primary mb-3">
+              <a href="<?= base_url('?url=c_master/Mobil_C/create_mobil') ?>" class="btn btn-primary mb-3">
                 <i class="fas fa-car"></i> Tambah Data Mobil
               </a>
               <table class="table table-bordered table-striped">
@@ -52,13 +47,25 @@
                     <td><?= $m['nbagasi'] ?></td>
                     <td><?= $m['jns_mobil'] ?> - <?= $m['transmisi'] ?></td>
                     <td><?= $m['thn_buat'] ?></td>
-                    <td><?= $m['ft_depan'] ?><br><?= $m['ft_blkg'] ?><br><?= $m['ft_interior'] ?></td>
-                    <td><?= number_format($m['hrg_hari'], 2, '.', ',') ?></td>
+                    
+                    <!-- FOTO SUDAH PAKAI IMG SESUAI SURUHAN DOSEN -->
+                    <td>
+                      <small>Depan:</small><br>
+                      <img src="<?= base_url('img/'.$m['ft_depan']) ?>" width="100" style="border-radius:5px; margin-bottom:5px;"><br>
+                      
+                      <small>Belakang:</small><br>
+                      <img src="<?= base_url('img/'.$m['ft_blkg']) ?>" width="100" style="border-radius:5px; margin-bottom:5px;"><br>
+                      
+                      <small>Interior:</small><br>
+                      <img src="<?= base_url('img/'.$m['ft_interior']) ?>" width="100" style="border-radius:5px;">
+                    </td>
+
+                    <td><?= $m['hrg_hari']?></td>
                     <td><?= $m['cttn_unit'] ?></td>
                     <td><?= $m['status_unit'] ?></td>
                     <td>
-                      <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                      <a href="#" class="btn btn-danger btn-sm">Hapus</a>
+                      <a href="<?= base_url('?url=c_master/Mobil_C/edit/' . $m['no_plat']) ?>" class="btn btn-warning btn-sm">Edit</a>
+                      <a href="<?= base_url('?url=c_master/Mobil_C/hapus/' . $m['no_plat']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
                     </td>
                   </tr>
                   <?php endforeach; ?>
