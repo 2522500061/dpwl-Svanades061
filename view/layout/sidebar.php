@@ -44,9 +44,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?= base_url('?url=c_master/Penyewa_C061/index') ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Data Penyewa</p>
+                <p>Data Penyewa </p>
               </a>
             </li>
           </ul>
@@ -108,7 +108,7 @@
           </ul>
         </li>
 
-        <!-- 4. LOGOUT - INI KODE SLIDE, TANPA UBAH YANG DI ATAS -->
+        <!-- 4. LOGOUT -->
         <li class="nav-item">
           <a href="<?= base_url('?url=c_master/Mobil_C/keluar') ?>" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
