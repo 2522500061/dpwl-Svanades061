@@ -2,6 +2,12 @@
 require_once 'config/autoload.php';
 require_once 'config/routes.php';
 require_once 'config/config.php';
+
+// TAMBAHAN - BIAR BASEURL BISA DIBACA DI SEMUA VIEW / HEADER
+if (!defined('BASEURL')) {
+    define('BASEURL', $config['base_url']);
+}
+
 require_once 'helper/url_helper.php';
 
 $url = $_GET['url'] ?? $route['default_controller'] . '/index';
@@ -13,25 +19,31 @@ $url = trim($url, '/');
 $segment = explode('/', $url);
 
 // CEK APAKAH SEGMENT PERTAMA ADALAH FOLDER
-if (isset($segment[0]) && strtolower($segment[0]) == 'c_master') {
-    // URL = c_master/Mobil_C/index
-    $folder = $segment[0]; // c_master
+if (isset($segment[0]) && is_dir('controller/' . $segment[0])) {
+    // URL = c_master/Mobil_C/index ATAU m_shop/Sewa_C/simpan/xxx
+    $folder = $segment[0]; // c_master / m_shop / c_shop
     $controller = $segment[1] ?? $route['default_controller'];
     $method = $segment[2] ?? 'index';
-    $parameter = $segment[3] ?? null;
+    $parameter = isset($segment[3]) ? urldecode($segment[3]) : null;
 
     $controllerName = $controller; // Jangan di ucfirst, biar Mobil_C tetap Mobil_C
     $controllerFile = 'controller/'.$folder.'/'.$controllerName.'.php';
 } else {
-    // URL = Mobil_C/index
+    // URL = Mobil_C/index ATAU Sewa_C/simpan/xxx
     $controller = $segment[0] ?? $route['default_controller'];
     $method = $segment[1] ?? 'index';
-    $parameter = $segment[2] ?? null;
+    $parameter = isset($segment[2]) ? urldecode($segment[2]) : null;
 
     $controllerName = ucfirst($controller);
-    // Coba cek 2 lokasi: di root controller dan di dalam c_master
+    // Cek di semua folder controller: root, c_master, m_shop, c_shop
     if (file_exists('controller/'.$controllerName.'.php')) {
         $controllerFile = 'controller/'.$controllerName.'.php';
+    } elseif (file_exists('controller/c_master/'.$controllerName.'.php')) {
+        $controllerFile = 'controller/c_master/'.$controllerName.'.php';
+    } elseif (file_exists('controller/m_shop/'.$controllerName.'.php')) {
+        $controllerFile = 'controller/m_shop/'.$controllerName.'.php';
+    } elseif (file_exists('controller/c_shop/'.$controllerName.'.php')) {
+        $controllerFile = 'controller/c_shop/'.$controllerName.'.php';
     } else {
         $controllerFile = 'controller/c_master/'.$controllerName.'.php';
     }

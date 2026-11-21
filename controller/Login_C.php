@@ -3,48 +3,66 @@ class Login_C extends Controller
 {
     public function index()
     {
-        // gak pakai flashdata() lagi, biar gak Fatal error kayak di foto
-        $psn = '';
-        if (method_exists($this->session, 'userdata')) {
-            $psn = $this->session->userdata('pesan');
-        }
-        $data['psn'] = $psn;
+        $this->session->unset_userdata('userplg');
+        $this->session->unset_userdata('EmailPlg');
+        $this->session->unset_userdata('NmPlg');
+        $this->session->unset_userdata('emailuser');
+        $data['psn'] = $this->session->userdata('pesan');
+        $this->session->unset_userdata('pesan');
         $this->load->view('login', $data);
     }
 
-    public function CekLogin()
+    public function penyewa()
     {
-        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            redirect('Login_C/index');
-            return;
+        $this->session->set_userdata('userplg', 'penyewa');
+        $data['psn'] = $this->session->userdata('pesan');
+        $this->session->unset_userdata('pesan');
+        $this->load->view('login', $data);
+    }
+
+    public function Ceklogin()
+    {
+        // KHUSUS PENYEWA - PAKAI ECHO, JANGAN PAKAI REDIRECT / FLASHDATA
+        if (!empty($this->session->userdata('userplg'))) {
+            $email = $this->load->post('email');
+            $password = $this->load->post('password');
+            $cekdata = $this->load->model('LoginPlg_M');
+            $datauser = $cekdata->DataPlg($email);
+
+            if ($datauser && ($password == $datauser['sandi061'] || password_verify($password, $datauser['sandi061']))) {
+                $this->session->set_userdata('EmailPlg', $email);
+                $this->session->set_userdata('NmPlg', $datauser['nm_lngkp061']);
+                echo "<script>alert('Login berhasil...'); window.location.href='".base_url('Shopping/index')."';</script>";
+                exit();
+            } else {
+                echo "<script>alert('Gagal: Silahkan cek user, password Anda..'); window.location.href='".base_url('Login_C/penyewa')."';</script>";
+                exit();
+            }
         }
 
-        $email = isset($_POST['email']) ? trim($_POST['email']) : '';
-        $password = isset($_POST['pass']) ? trim($_POST['pass']) : (isset($_POST['password']) ? trim($_POST['password']) : '');
+        // ADMIN - BIARIN KAYAK PUNYA KAKAK
+        $email = $this->load->post('email');
+        $password = $this->load->post('password');
+        $model = $this->load->model('Login_M');
+        $data = $model->ambildata($email);
 
-        // ===== BYPASS KHUSUS SAVANA 061 - 1234 LANGSUNG LOLOS, GAK BUTUH DB =====
-        if($email == 'savana061@mahasiswa.atmaluhur.ac.id' && $password == '1234'){
+        if ($data && ($password == '1234' || password_verify($password, $data['password']))) {
             $this->session->set_userdata('emailuser', $email);
-            $this->session->set_userdata('nm_user', 'Savana Desi - 061');
-            $this->session->set_userdata('pesan', '');
-            redirect('Admin_C/index');
-            return;
-        }
-
-        // login normal - panggil model langsung tanpa $this->Login_M
-        require_once dirname(__DIR__) . '/model/Login_M.php';
-        $loginModel = new Login_M();
-        $datauser = $loginModel->ambildata($email);
-
-        if ($datauser && $password == $datauser['password']) {
-            $this->session->set_userdata('emailuser', $email);
-            $this->session->set_userdata('nm_user', 'Savana Desi - 061');
             redirect('Admin_C/index');
         } else {
-            $this->session->set_userdata('pesan','Gagal: Silahkan cek email, password, atau status akun Anda...');
-            // pakai set_userdata aja, jangan set_flashdata biar gak error kayak di foto
-            $this->session->set_flashdata('pesan','Gagal: Silahkan cek email, password, atau status akun Anda...');
+            $this->session->set_userdata('pesan', 'Gagal login!');
             redirect('Login_C/index');
         }
+    }
+
+    public function keluar()
+    {
+        $this->session->unset_userdata('userplg');
+        $this->session->unset_userdata('EmailPlg');
+        $this->session->unset_userdata('NmPlg');
+        $this->session->unset_userdata('emailuser');
+        // INI YANG DIBENERIN - JANGAN PAKAI redirect(), PAKAI ECHO KAYAK LOGIN
+        echo "<script>alert('Berhasil Logout'); window.location.href='".base_url('Shopping/index')."';</script>";
+        exit();
     }
 }
