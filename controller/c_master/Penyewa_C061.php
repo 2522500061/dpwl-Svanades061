@@ -13,7 +13,6 @@ class Penyewa_C061 extends Controller
         $this->load->view('layout/footer');
     }
 
-    // INI YANG HILANG DI FOTO KAKAK - WAJIB ADA!
     public function create_penyewa()
     {
         $email = $this->session->userdata('emailuser');
@@ -44,7 +43,7 @@ class Penyewa_C061 extends Controller
         ];
         
         if($model->simpan061($data)){
-            header('Location: '.base_url('?url=c_master/Penyewa_C061/index'));
+            header('Location: '.base_url('c_master/Penyewa_C061/index'));
             exit;
         } else {
             echo "Gagal simpan";
@@ -66,8 +65,15 @@ class Penyewa_C061 extends Controller
     public function UpdatePenyewa()
     {
         $model = $this->load->model('m_master/Penyewa_M061');
+        // Kalau tidak pilih foto baru, pakai foto lama!
         $ft_ktp = $this->uploadFoto('ft_ktp');
+        if($ft_ktp == null){
+            $ft_ktp = $this->load->post('ft_ktp_asli');
+        }
         $ft_sim = $this->uploadFoto('ft_sim_a');
+        if($ft_sim == null){
+            $ft_sim = $this->load->post('ft_sim_a_asli');
+        }
 
         $data = [
             'user_plg061' => $this->load->post('user_plg061'),
@@ -81,7 +87,7 @@ class Penyewa_C061 extends Controller
             'ft_sim_a' => $ft_sim
         ];
         $model->ubah061($data);
-        header('Location: '.base_url('?url=c_master/Penyewa_C061/index'));
+        header('Location: '.base_url('c_master/Penyewa_C061/index'));
         exit;
     }
 
@@ -89,7 +95,7 @@ class Penyewa_C061 extends Controller
     {
         $model = $this->load->model('m_master/Penyewa_M061');
         $model->hapus061($id);
-        header('Location: '.base_url('?url=c_master/Penyewa_C061/index'));
+        header('Location: '.base_url('c_master/Penyewa_C061/index'));
         exit;
     }
 

@@ -5,7 +5,8 @@ class Mobil_C extends Controller
     {
         $cekdata = $this->load->model('m_master/Mobil_M');
         $dt['dtmobil'] = $cekdata->datamobil();
-        $info['nm_user'] = explode('@', $this->session->userdata('emailuser'))[0];
+        $email = $this->session->userdata('emailuser');
+        $info['nm_user'] = $email ? explode('@', $email)[0] : 'Admin 061';
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar', $info);
         $this->load->view('v_master/mobilview', $dt);
@@ -14,7 +15,8 @@ class Mobil_C extends Controller
 
     public function create_mobil()
     {
-        $info['nm_user'] = explode('@', $this->session->userdata('emailuser'))[0];
+        $email = $this->session->userdata('emailuser');
+        $info['nm_user'] = $email ? explode('@', $email)[0] : 'Admin 061';
         $this->load->view('layout/header');
         $this->load->view('layout/sidebar', $info);
         $this->load->view('v_master/create_mobilview');
@@ -84,7 +86,7 @@ class Mobil_C extends Controller
         if ($simpan) {
             echo "<script>
                 alert('Data mobil berhasil disimpan!');
-                window.location.href = '" . base_url('?url=c_master/Mobil_C/index') . "';
+                window.location.href = '" . base_url('c_master/Mobil_C/index') . "';
             </script>";
         } else {
             echo "<script>
@@ -96,7 +98,8 @@ class Mobil_C extends Controller
 
     public function edit($no_plat)
     {
-        $info['nm_user'] = explode('@', $this->session->userdata('emailuser'))[0];
+        $email = $this->session->userdata('emailuser');
+        $info['nm_user'] = $email ? explode('@', $email)[0] : 'Admin 061';
         $mobil = $this->load->model('m_master/Mobil_M');
         $dt['mobil'] = $mobil->detailmobil($no_plat);
         $this->load->view('layout/header');
@@ -177,7 +180,7 @@ class Mobil_C extends Controller
         if ($simpan) {
             echo "<script>
                 alert('Data mobil berhasil diubah!');
-                window.location.href = '" . base_url('?url=c_master/Mobil_C/index') . "';
+                window.location.href = '" . base_url('c_master/Mobil_C/index') . "';
             </script>";
         } else {
             echo "<script>
@@ -213,7 +216,7 @@ class Mobil_C extends Controller
 
             echo "<script>
                 alert('Data mobil berhasil dihapus!');
-                window.location.href = '" . base_url('?url=c_master/Mobil_C/index') . "';
+                window.location.href = '" . base_url('c_master/Mobil_C/index') . "';
             </script>";
         } else {
             echo "<script>
@@ -223,7 +226,6 @@ class Mobil_C extends Controller
         }
     }
 
-    // TAMBAHAN SESUAI FOTO SLIDE LOGOUT TERAKHIR
     public function keluar()
     {
         $this->session->unset_userdata('emailuser');

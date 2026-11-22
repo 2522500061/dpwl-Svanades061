@@ -32,7 +32,9 @@ class Login_C extends Controller
             if ($datauser && ($password == $datauser['sandi061'] || password_verify($password, $datauser['sandi061']))) {
                 $this->session->set_userdata('EmailPlg', $email);
                 $this->session->set_userdata('NmPlg', $datauser['nm_lngkp061']);
-                echo "<script>alert('Login berhasil...'); window.location.href='".base_url('Shopping/index')."';</script>";
+                // DITAMBAHIN BIAR BISA MASUK ADMIN - KAYAK PUNYA TEMEN
+                $this->session->set_userdata('emailuser', $email);
+                echo "<script>alert('Login berhasil...'); window.location.href='".base_url('Admin_C/index')."';</script>";
                 exit();
             } else {
                 echo "<script>alert('Gagal: Silahkan cek user, password Anda..'); window.location.href='".base_url('Login_C/penyewa')."';</script>";

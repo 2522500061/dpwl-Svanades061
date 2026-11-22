@@ -5,7 +5,7 @@
                 <div class="col-sm-6"><h1 class="m-0">Entri Penyewa 061</h1></div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?= base_url('?url=c_master/Penyewa_C061/index') ?>">Master Penyewa</a></li>
+                        <li class="breadcrumb-item"><a href="<?= base_url('c_master/Penyewa_C061/index') ?>">Master Penyewa</a></li>
                         <li class="breadcrumb-item active">Entri 061</li>
                     </ol>
                 </div>
@@ -19,7 +19,7 @@
                 <div class="card-header">
                     <h3 class="card-title"><i class="fas fa-user-plus"></i> Form Entri Penyewa 061</h3>
                 </div>
-                <form action="<?= base_url('?url=c_master/Penyewa_C061/simpan') ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= base_url('c_master/Penyewa_C061/simpan') ?>" method="POST" enctype="multipart/form-data">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -38,7 +38,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="<?= base_url('?url=c_master/Penyewa_C061/index') ?>" class="btn btn-secondary">Kembali</a>
+                        <a href="<?= base_url('c_master/Penyewa_C061/index') ?>" class="btn btn-secondary">Kembali</a>
                     </div>
                 </form>
             </div>

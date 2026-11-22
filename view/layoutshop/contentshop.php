@@ -18,7 +18,7 @@
                         <a href="<?= base_url('shopping/detail/' . $m['no_plat']); ?>" class="btn btn-sm text-dark p-0">
                              <i class="fas fa-eye text-danger mr-1"></i>View Detail
                         </a>
-                        <a href="<?= base_url('Sewa_C/simpan/' . rawurlencode($m['no_plat'])) ?>" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-info mr-1"></i>Pilih Sewa</a>
+                        <a href="<?= base_url('c_shop/Sewa_C/simpan/' . rawurlencode($m['no_plat'])) ?>" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-info mr-1"></i>Pilih Sewa</a>
                     </div>
                 </div>
             </div>

@@ -105,4 +105,36 @@ class Sewa_M extends Model
 
         return $data ? $data['jumlah'] : 0;
     }
+
+    // INI YANG BARU KAK - BUAT HITUNG JUMLAH DI HEADER
+    public function HitungKeranjang($kode)
+    {
+        $sql = $this->db->prepare(
+            "SELECT COUNT(*) AS jumlah FROM pilih WHERE kode_sewa = ?"
+        );
+        $sql->bind_param("s", $kode);
+        $sql->execute();
+        $hasil = $sql->get_result();
+        $data = $hasil->fetch_assoc();
+        return $data ? (int) $data['jumlah'] : 0;
+    }
+
+    // INI YANG BARU KAK - BUAT NAMPILIN ISI KERANJANG
+    public function TampilKeranjang($kode)
+    {
+        $sql = $this->db->prepare(
+            "SELECT pilih.*, mobil.merk, mobil.model, mobil.hrg_hari, mobil.foto, mobil.warna
+            FROM pilih
+            INNER JOIN mobil ON mobil.no_plat = pilih.no_plat
+            WHERE pilih.kode_sewa = ?"
+        );
+        $sql->bind_param("s", $kode);
+        $sql->execute();
+        $hasil = $sql->get_result();
+        $data = [];
+        while ($row = $hasil->fetch_assoc()) {
+            $data[] = $row;
+        }
+        return $data;
+    }
 }

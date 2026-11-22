@@ -17,7 +17,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <a href="<?= base_url('?url=c_master/Penyewa_C061/create_penyewa') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah Penyewa</a>
+                    <a href="<?= base_url('c_master/Penyewa_C061/create_penyewa') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah Penyewa</a>
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table table-bordered table-striped">
@@ -52,8 +52,8 @@
                                     <?php } else { echo '<span class="text-danger">No Foto</span>'; } ?>
                                 </td>
                                 <td>
-                                    <a href="<?= base_url('?url=c_master/Penyewa_C061/edit/'.$row['user_plg061']) ?>" class="btn btn-warning btn-sm">Edit</a>
-                                    <a href="<?= base_url('?url=c_master/Penyewa_C061/hapus/'.$row['user_plg061']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus?')">Hapus</a>
+                                    <a href="<?= base_url('c_master/Penyewa_C061/edit/'.$row['user_plg061']) ?>" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="<?= base_url('c_master/Penyewa_C061/hapus/'.$row['user_plg061']) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus?')">Hapus</a>
                                 </td>
                             </tr>
                             <?php } } else { ?>

@@ -3,7 +3,8 @@ class Admin_C extends Controller
 {
     public function index()
     {
-        $info['nm_user'] = explode('@', $this->session->userdata('emailuser'))[0];
+        $email = $this->session->userdata('emailuser');
+        $info['nm_user'] = $email ? explode('@', $email)[0] : 'Admin 061';
         $info['info_psn'] = $this->session->set_flashdata('pesan');
         $this->load->view('layout/header', $info);
         $this->load->view('layout/sidebar', $info);

@@ -18,7 +18,7 @@
                 <div class="card-header">
                     <h3 class="card-title"><i class="fas fa-car"></i> Form Update Data Mobil - <?= $mobil['no_plat'] ?></h3>
                 </div>
-                <form action="<?= base_url('Mobil_C/UpdateMobil') ?>" method="post" enctype="multipart/form-data">
+                <form action="<?= base_url('c_master/Mobil_C/UpdateMobil') ?>" method="post" enctype="multipart/form-data">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -95,7 +95,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Update</button>
-                        <a href="<?= base_url('Mobil_C/index') ?>" class="btn btn-secondary">Kembali</a>
+                        <a href="<?= base_url('c_master/Mobil_C/index') ?>" class="btn btn-secondary">Kembali</a>
                     </div>
                 </form>
             </div>

@@ -30,6 +30,15 @@
     if (!empty($psn)) {
         echo "<script>alert('" . $psn . "');</script>";
     }
+    // TAMBAHAN KAK - HITUNG KERANJANG, PAKAI new BIAR GAK ERROR
+    $jml_cart = 0;
+    if (!empty($EmPlg)) {
+        if (!class_exists('Sewa_M')) {
+            require_once __DIR__ . '/../../model/m_shop/Sewa_M.php';
+        }
+        $sewa_m = new Sewa_M();
+        $jml_cart = $sewa_m->DataKeranjang($EmPlg);
+    }
     ?>
     <!-- Topbar Start -->
     <div class="container-fluid">
@@ -93,9 +102,9 @@
                     <span class="badge">0</span>
                 </a>
 
-                <a href="" class="btn border">
+                <a href="<?= base_url('c_shop/Sewa_C') ?>" class="btn border">
                     <i class="fas fa-shopping-cart text-info"></i>
-                    <span class="badge">0</span>
+                    <span class="badge"><?= $jml_cart ?></span>
                 </a>
             </div>
             <div class="col-lg-12 text-right">
