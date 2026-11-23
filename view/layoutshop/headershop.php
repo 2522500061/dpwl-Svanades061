@@ -102,9 +102,9 @@
                     <span class="badge">0</span>
                 </a>
 
-                <a href="<?= base_url('c_shop/Sewa_C') ?>" class="btn border">
+                <a href="<?= base_url('c_shop/Sewa_C/keranjang') ?>" class="btn border">
                     <i class="fas fa-shopping-cart text-info"></i>
-                    <span class="badge"><?= $jml_cart ?></span>
+                    <span class="badge"><?= $dtkeranjang ?></span>
                 </a>
             </div>
             <div class="col-lg-12 text-right">
